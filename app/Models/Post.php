@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Post extends Model
+class Post extends Model implements HasMedia
+
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
 
     public function category()
     {
@@ -20,5 +27,4 @@ class Post extends Model
     {
         $this->belongsToMany(Tag::class);
     }
-
 }
